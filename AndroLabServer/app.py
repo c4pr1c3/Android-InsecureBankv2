@@ -12,11 +12,13 @@ makejson = json.dumps
 app = Flask(__name__)
 makejson = json.dumps
 
+DEFAULT_HOST_IP = "192.168.58.1"
 DEFAULT_PORT_NO = 8888
 
 def usageguide():
     print "InsecureBankv2 Backend-Server"
     print "Options: "
+    print "  --host h    serve on host h (default 192.168.58.1)"
     print "  --port p    serve on port p (default 8888)"
     print "  --help      print this message"
 
@@ -136,19 +138,28 @@ def devlogin():
     return makejson(data)
 
 if __name__ == '__main__':
+    host = DEFAULT_HOST_IP
     port = DEFAULT_PORT_NO
-    options, args = getopt.getopt(sys.argv[1:], "", ["help", "port="])
+    try:
+        options, args = getopt.getopt(sys.argv[1:], "", ["help", "port=", "host="])
+    except getopt.GetoptError as err:
+        # print help information and exit:
+        print str(err)  # will print something like "option -a not recognized"
+        usageguide()
+        sys.exit(2)
     for op, arg1 in options:
-	if op == "--help":
+        if op == "--help":
             usageguide()
             sys.exit(2)
+        elif op == "--host":
+            host = arg1
         elif op == "--port":
             port = int(arg1)
 
     urls = ("/.*", "app")
     apps = web.application(urls, globals())
-    server = CherryPyWSGIServer(("0.0.0.0", port),app,server_name='localhost')
-    print "The server is hosted on port:",(port)
+    server = CherryPyWSGIServer((host, port),app,server_name='localhost')
+    print "The server is hosted on host:port", (host, port)
     
     try:
         server.start()

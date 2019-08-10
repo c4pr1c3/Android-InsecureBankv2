@@ -16,7 +16,17 @@ Install the below libraries using: easy_install <libraryname>
 * web.py
 
 Alternatively just use:
-pip install -r requirements.txt
+
+```bash
+# https://github.com/pypa/pipenv
+pipenv install -r requirements.txt --two
+
+# 国内用户推荐使用以下命令（使用清华 pypi 镜像源加速）
+pipenv install
+
+# 进入 pipenv 环境
+pipenv shell
+```
 
 Running the python server
 -----
