@@ -38,9 +38,9 @@ def login():
     u = User.query.filter(User.username == request.form["username"]).first()
     print "u=",u
     if u and u.password == request.form["password"]:
-	Responsemsg="Correct Credentials"
+        Responsemsg="Correct Credentials"
     elif u and u.password != request.form["password"]:
-	Responsemsg="Wrong Password"
+        Responsemsg="Wrong Password"
     elif not u:
         Responsemsg="User Does not Exist"
     else: Responsemsg="Some Error"
@@ -66,10 +66,10 @@ def getaccounts():
         a=Account.query.filter(Account.user == user)
         for i in a:
           if (i.type=='from'):
-	    from_acc=i.account_number;
+            from_acc=i.account_number
         for j in a:
           if (i.type=='to'):
-	    to_acc=i.account_number;
+            to_acc=i.account_number
     data = {"message" : Responsemsg, "from": from_acc,"to": to_acc}
     print makejson(data)
     return makejson(data)
@@ -88,8 +88,8 @@ def changepassword():
     if not u:
         Responsemsg="Error"
     else:
-	Responsemsg="Change Password Successful"
-	u.password = newpassword
+        Responsemsg="Change Password Successful"
+        u.password = newpassword
         db_session.commit()
     data = {"message" : Responsemsg}
     print makejson(data)
@@ -110,10 +110,10 @@ def dotransfer():
         Responsemsg="Wrong Credentials so trx fail"
 	#print Responsemsg
     else:
-	Responsemsg="Success"
+        Responsemsg="Success"
 	#print Responsemsg
-	from_acc = request.form["from_acc"]
-	to_acc = request.form["to_acc"]
+        from_acc = request.form["from_acc"]
+        to_acc = request.form["to_acc"]
 	amount = request.form["amount"]
         from_account = Account.query.filter(Account.account_number == from_acc).first()
         to_account = Account.query.filter(Account.account_number == to_acc).first()
