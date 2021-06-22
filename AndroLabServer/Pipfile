@@ -10,6 +10,7 @@ sqlalchemy = "*"
 simplejson = "*"
 Flask = "*"
 "web.py" = "*"
+cherrypy = "*"
 
 [requires]
 python_version = "2.7"

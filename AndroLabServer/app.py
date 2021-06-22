@@ -1,9 +1,10 @@
 import getopt
 import web
-from web.wsgiserver import CherryPyWSGIServer
 import sys
-from flask import Flask, request, request_started
+#from web.wsgiserver import CherryPyWSGIServer
 #from cherrypy import wsgiserver
+from cheroot import wsgi # This replaces the 2 above
+from flask import Flask, request, request_started
 from functools import wraps
 from models import User, Account
 from database import db_session
@@ -12,7 +13,7 @@ makejson = json.dumps
 app = Flask(__name__)
 makejson = json.dumps
 
-DEFAULT_HOST_IP = "192.168.58.1"
+DEFAULT_HOST_IP = "0.0.0.0"
 DEFAULT_PORT_NO = 8888
 
 def usageguide():
@@ -158,7 +159,7 @@ if __name__ == '__main__':
 
     urls = ("/.*", "app")
     apps = web.application(urls, globals())
-    server = CherryPyWSGIServer((host, port),app,server_name='localhost')
+    server = wsgi.Server((host, port),app,server_name='localhost')
     print "The server is hosted on host:port", (host, port)
     
     try:
