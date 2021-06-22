@@ -6,11 +6,11 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-sqlalchemy = "*"
 simplejson = "*"
 Flask = "*"
-"web.py" = "*"
-cherrypy = "*"
+"web.py" = "==0.51"
+SQLAlchemy = "*"
+CherryPy = "*"
 
 [requires]
 python_version = "2.7"

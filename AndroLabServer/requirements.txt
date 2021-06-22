@@ -2,4 +2,4 @@ flask
 sqlalchemy
 simplejson
 cherrypy
-web.py
+web.py==0.51
